@@ -30,8 +30,8 @@ b. If not present, install python3.
 c. Copy poseidon_gf_main.py and poseidon_controller_gf.py to the same directory on the computer that will run the system.
 
 ## Running instructions
- 
-1. Power up the stepper motor controllers
+
+1. Power up the stepper motor controllers. 
 2. Run the python program poseidon_main_gf.py. The program poseidon_controller_gf_gui.py needs to be in the same directory as poseidon_main_gf.py. 
 
 
@@ -40,3 +40,9 @@ c. Copy poseidon_gf_main.py and poseidon_controller_gf.py to the same directory 
 
 ## Presentations
 This work was presented in a poster at the ACA Meeting in Portland, OR in summer 2023.
+
+## Other tidbits
+
+### Raspberry Pi and Touch Screen
+It is possible to use the touch screen only on a Raspberry Pi (or just the mouse) to run the system. To do so:
+1. Install the [virtual keyboard.]([url](https://pimylifeup.com/raspberry-pi-on-screen-keyboard/)) 
