@@ -44,5 +44,9 @@ This work was presented in a poster at the ACA Meeting in Portland, OR in summer
 ## Other tidbits
 
 ### Raspberry Pi and Touch Screen
-It is possible to use the touch screen only on a Raspberry Pi (or just the mouse) to run the system. To do so:
-1. Install the on-screen keyboard: https://pimylifeup.com/raspberry-pi-on-screen-keyboard/
+It is possible to use the touch screen only on a Raspberry Pi (or just the mouse with onscreen keyboard) to run the system. To do so:
+1. Install an on-screen keyboard: https://pimylifeup.com/raspberry-pi-on-screen-keyboard/
+2. Turn the poseidon_main_gf.py into a clickable executable:
+   	a. Add #!/usr/bin/python3 to the first line of poseidon_main_gf.py
+    	b. chmod +x poseidon_main_gf.py
+   	c. .....
