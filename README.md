@@ -45,4 +45,4 @@ This work was presented in a poster at the ACA Meeting in Portland, OR in summer
 
 ### Raspberry Pi and Touch Screen
 It is possible to use the touch screen only on a Raspberry Pi (or just the mouse) to run the system. To do so:
-1. Install the [virtual keyboard.]([url](https://pimylifeup.com/raspberry-pi-on-screen-keyboard/)) 
+1. Install the [virtual keyboard]([url](https://pimylifeup.com/raspberry-pi-on-screen-keyboard/)) 
