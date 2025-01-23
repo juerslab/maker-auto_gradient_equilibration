@@ -1,5 +1,5 @@
 # Auto Gradient Equilibration
-This project aims to simplify the equilibration of macromolecular crystals to new solutions, by minimizing the pipetting required. Crystals are placed into a small (~40 µL) reservoir and the reservoir solution is slowly changed over time.
+This project aims to simplify the equilibration of macromolecular crystals to new solutions, by minimizing the pipetting required. Crystals are placed into a small (~40 µL) reservoir and the reservoir solution is automatically changed over time at a user-defined rate.
 
 The project uses an open source syringe pumping system located here:  https://github.com/pachterlab/poseidon
 
