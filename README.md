@@ -25,7 +25,7 @@ A brief summary is here:
 
 The syringe pumping software was modified for auto serial dilution applications. To install the software:
 
-a. Flash the Arduino with arduino_serialCOM_v0.1.1ino (unmodified from the original version).   
+a. Flash the Arduino with arduino_serialCOM_v0.1.1.ino (unmodified from the original version).   
 b. If not present, install python3.   
 c. Copy poseidon_gf_main_v0.1.1.py and poseidon_controller_gf.py to the same directory on the computer that will run the system.
 
