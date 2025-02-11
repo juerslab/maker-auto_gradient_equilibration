@@ -1,7 +1,5 @@
 # Auto Gradient Equilibration
-This project aims to simplify the equilibration of macromolecular crystals to new solutions, by minimizing the pipetting required.
-
-Crystals are placed into a small reservoir and the reservoir solution is slowly changed over time.
+This project aims to simplify the equilibration of macromolecular crystals to new solutions, by minimizing the pipetting required. Crystals are placed into a small (~40 µL) reservoir and the reservoir solution is automatically changed over time at a user-defined rate. Crystals can be left for slow, gentle solution exchange while other work is being done in the laboratory.
 
 The project uses an open source syringe pumping system located here:  https://github.com/pachterlab/poseidon
 
@@ -27,14 +25,14 @@ A brief summary is here:
 
 The syringe pumping software was modified for auto serial dilution applications. To install the software:
 
-a. Flash the Arduino with arduino_serialCOM_v0.1.ino (unmodified from the original version).   
+a. Flash the Arduino with arduino_serialCOM_v0.1.1.ino (unmodified from the original version).   
 b. If not present, install python3.   
-c. Copy poseidon_gf_main.py and poseidon_controller_gf.py to the same directory on the computer that will run the system.
+c. Copy poseidon_gf_main_v0.1.1.py and poseidon_controller_gf.py to the same directory on the computer that will run the system.
 
 ## Running instructions
- 
-1. Power up the stepper motor controllers
-2. Run the python program poseidon_main_gf.py. The program poseidon_controller_gf_gui.py needs to be in the same directory as poseidon_main_gf.py. 
+
+1. Power up the stepper motor controllers. 
+2. Run the python program poseidon_main_gf_v0.1.1.py. The program poseidon_controller_gf_gui.py needs to be in the same directory as poseidon_main_gf.py. 
 
 
 ## Manuscripts
@@ -42,3 +40,13 @@ c. Copy poseidon_gf_main.py and poseidon_controller_gf.py to the same directory 
 
 ## Presentations
 This work was presented in a poster at the ACA Meeting in Portland, OR in summer 2023.
+
+## Other tidbits
+
+### Raspberry Pi and Touch Screen
+It is possible to use the touch screen only on a Raspberry Pi (or just the mouse with onscreen keyboard) to run the system. To do so:
+1. Install an on-screen keyboard: https://pimylifeup.com/raspberry-pi-on-screen-keyboard/
+2. Turn the poseidon_main_gf.py into a clickable executable:
+   	a. Add #!/usr/bin/python3 to the first line of poseidon_main_gf.py
+    	b. chmod +x poseidon_main_gf.py
+   	c. .....
