@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>732</width>
-    <height>486</height>
+    <width>693</width>
+    <height>483</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -56,6 +56,33 @@
       <property name="movable">
        <bool>false</bool>
       </property>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Help</string>
+       </attribute>
+       <widget class="QTextBrowser" name="textBrowser">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>20</y>
+          <width>601</width>
+          <height>351</height>
+         </rect>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Basic usage:&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1. Use&lt;span style=&quot; font-weight:600;&quot;&gt; Setup&lt;/span&gt; to set up parameters (i.e. port, microstepping, units, speed &amp;amp; acceleration, jogging amount).&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2. Use &lt;span style=&quot; font-weight:600;&quot;&gt;Syringe Control &lt;/span&gt;actually move the syringes by specified amounts.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3. Use &lt;span style=&quot; font-weight:600;&quot;&gt;Auto Run&lt;/span&gt; to set up gradient programs using two syringes simultaneously.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; - Note that the syringes to be used for  Auto Run must be set as active in &lt;span style=&quot; font-weight:600;&quot;&gt;Syringe Control&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;4. Use&lt;span style=&quot; font-weight:600;&quot;&gt; Camera&lt;/span&gt; to connect to and view images from the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </widget>
       <widget class="QWidget" name="control">
        <attribute name="title">
         <string>Syringe Control</string>
@@ -591,6 +618,9 @@
                   <underline>false</underline>
                  </font>
                 </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The sign controls the direction:&lt;/p&gt;&lt;p&gt;+  --&amp;gt; flow into the syringe&lt;/p&gt;&lt;p&gt;-  --&amp;gt; flow out of syringe&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="text">
                  <string>Amount </string>
                 </property>
@@ -819,8 +849,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>487</width>
-             <height>362</height>
+             <width>450</width>
+             <height>353</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_26">
@@ -1635,8 +1665,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
-             <height>40</height>
+             <width>637</width>
+             <height>309</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_32">
@@ -1762,7 +1792,7 @@
              </font>
             </property>
             <property name="toolTip">
-             <string>Default should be 1. Greater microstepping will move the syringes further.</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="text">
              <string>Set Microstepping:</string>
@@ -1770,7 +1800,11 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="microstepping_DROPDOWN"/>
+           <widget class="QComboBox" name="microstepping_DROPDOWN">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set to the number of microsteps/step. Needs to be set with jumpers on the stepper motor driver boards. This will therefore also set the smallest possible injection. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -2095,7 +2129,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>732</width>
+     <width>693</width>
      <height>24</height>
     </rect>
    </property>

@@ -43,3 +43,26 @@ ToDo:
 2024-12-18
 - Cleaned up cabling
 - Some manuscript edits
+
+2025-01-06
+- Some manuscript edits
+
+2025-01-07
+- Installed imagemagick & converted figures to tiffs
+- Worked on github repository
+
+2025-01-09
+- Made another pass through.
+- Sent manuscript to collaborators (Jack Quire & Sean Stothers)
+
+ToDo (still):
+- Get new overview photo
+- Get hires photo of screen/menu view
+- Get hires schematic from ipad
+
+2025-01-22
+- Got comments from Sean. Jack has started reading. I told both that I will try to submit on next Wednesday.
+- Working on GitHub repository. Discovered we weren't using microstepping, so have been implementing that. Gives much smaller injections (32x smaller, for about 2 nL)
+
+2025-01-23
+- Working on making GUI nicer - with more complete help, etc. 
