@@ -222,3 +222,9 @@ Start: well solution:
 Ramp1: 40 min to 96% of {20% P8K, 50 mM salt, 25% mpd}
 Worked. Photos on M205C
 
+2025-02-11  
+Something happened with the SD card on the Raspberry Pi, and I had to restart from the beginning.
+1. Install Raspian on SD card. 
+2. Install opencv (takes a while):
+https://raspberrypi-guide.github.io/programming/install-opencv
+3. Make sure calibration.txt is present. Probably should make it possible for it not to be there...
