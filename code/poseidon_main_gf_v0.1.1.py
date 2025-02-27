@@ -185,7 +185,15 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 		# Random other things I need
 		self.image = None
 		self.speed_for_resetting=1000 #Use ~maximum speed for resetting the syring position
-		self.update_displays()
+#		self.update_displays()
+		if os.path.exists('calibration.txt'):
+			print('Found calbration.txt')
+		else:
+			print('calibration.txt not found. Creating this file with default values of zero. Calibration needed.')
+			open('calibration.txt','w')
+			calib=np.array([[0,0,0],[0,0,0]])
+			np.savetxt("calibration.txt",calib)
+
 		#self.microstepping = 1
 		#print(self.microstepping)
         

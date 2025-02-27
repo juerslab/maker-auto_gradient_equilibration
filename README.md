@@ -3,6 +3,10 @@ This project aims to simplify the equilibration of macromolecular crystals to ne
 
 The project uses an open source syringe pumping system located here:  https://github.com/pachterlab/poseidon
 
+![<# alt text #>](System_overview_2a.tiff "System_overview_2a.tiff")
+
+Overview of system. The crystals sit in a pot located on the blue housing. Two syringes are used to pump new solution into the pot while simultaneously removing solution from the pot. The system is controlled with a python based gui to set up gradient parameters. As shown, there is a Raspberry Pi computer (mounted beneath the screen) sending commands to an Arduino microcontroller with stepper motor drivers (beneath the red housing), which control the stepper motors (lower right). The stepper motors are coupled to threaded rods that move the white housing up and down to move the syringe plunger. Also beneath the red housing on the left  is a microscope used to visualize the sample.  
+
 ## Build instructions
 
 ### 1. Build and assemble the auto gradient equilibration hardware
@@ -25,14 +29,16 @@ A brief summary is here:
 
 The syringe pumping software was modified for auto serial dilution applications. To install the software:
 
-a. Flash the Arduino with arduino_serialCOM_v0.1.1.ino (unmodified from the original version).   
-b. If not present, install python3.   
-c. Copy poseidon_gf_main_v0.1.1.py and poseidon_controller_gf.py to the same directory on the computer that will run the system.
+a. Flash the Arduino with arduino_serialCOM_v0.x.y.ino  (0.1.1 as of Feb2025)
+b. If not present, install python3. Also install opencv (the codes depends on cv2).  
+c. Copy poseidon_gf_main_v0.x.y.py and poseidon_controller_gf_gui.py to the same directory on the computer that will run the system. (0.1.1 as of Feb2025)
 
 ## Running instructions
 
-1. Power up the stepper motor controllers. 
-2. Run the python program poseidon_main_gf_v0.1.1.py. The program poseidon_controller_gf_gui.py needs to be in the same directory as poseidon_main_gf.py. 
+1. Power up the stepper motor controllers by pluggin in.
+2. Connect the Arduino to the USB port of the computer you are using 
+3. Run the python program poseidon_main_gf_v0.x.y.py. The program poseidon_controller_gf_gui.py needs to be in the same directory as the main program.
+4. Once booted up, there is some help available from the gui.
 
 
 ## Manuscripts
@@ -47,6 +53,6 @@ This work was presented in a poster at the ACA Meeting in Portland, OR in summer
 It is possible to use the touch screen only on a Raspberry Pi (or just the mouse with onscreen keyboard) to run the system. To do so:
 1. Install an on-screen keyboard: https://pimylifeup.com/raspberry-pi-on-screen-keyboard/
 2. Turn the poseidon_main_gf.py into a clickable executable:
-   	a. Add #!/usr/bin/python3 to the first line of poseidon_main_gf.py
-    	b. chmod +x poseidon_main_gf.py
-   	c. .....
+   	a. Add #!/usr/bin/python3 to the first line of poseidon_main_gf.py  
+    b. chmod +x poseidon_main_gf.py  
+   	c. 
