@@ -1,11 +1,12 @@
 # Auto Gradient Equilibration
 This project aims to simplify the equilibration of macromolecular crystals to new solutions, by minimizing the pipetting required. Crystals are placed into a small (~40 µL) reservoir and the reservoir solution is automatically changed over time at a user-defined rate. Crystals can be left for slow, gentle solution exchange while other work is being done in the laboratory.
 
-The project uses an open source syringe pumping system located here:  https://github.com/pachterlab/poseidon
 
 ![<# alt text #>](System_overview_2a.tiff "System_overview_2a.tiff")
 
 Overview of system. The crystals sit in a pot located on the blue housing. Two syringes are used to pump new solution into the pot while simultaneously removing solution from the pot. The system is controlled with a python based gui to set up gradient parameters. As shown, there is a Raspberry Pi computer (mounted beneath the screen) sending commands to an Arduino microcontroller with stepper motor drivers (beneath the red housing), which control the stepper motors (lower right). The stepper motors are coupled to threaded rods that move the white housing up and down to move the syringe plunger. Also beneath the red housing on the left  is a microscope used to visualize the sample.  
+
+The project uses an open source syringe pumping system located here:  https://github.com/pachterlab/poseidon
 
 ## Build instructions
 
