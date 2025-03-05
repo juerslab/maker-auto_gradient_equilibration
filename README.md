@@ -73,7 +73,7 @@ The general scheme for modifiying the software goes:
 a. The main program (poseidon_main_gf_v0.x.y.py)  
 b. The GUI  
 	- Modify the GUI using Qt Designer to edit the file poseidon_controller_gf_gui.ui  
-	- Create poseidon_controller_gf_gui.py via 'pyuic5 poseidon_controller_gf_gui.ui > poseidon_controller_gf_gui.py'  
-c. The Arduino code. This may be needed for changes having to do with the stepper motors and/or the camera.   d
+	- Create poseidon_controller_gf_gui.py via 'pyuic5 poseidon_controller_gf_gui.ui > poseidon_controller_gf_gui.py'   	  
+c. The Arduino code. This may be needed for changes having to do with the stepper motors and/or the camera.
 
 _
