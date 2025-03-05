@@ -62,9 +62,9 @@ It is possible to use the touch screen only on a Raspberry Pi (or just the mouse
 2. Turn the poseidon_main_gf_v0.x.y_.py into a clickable executable:
    	a. Add #!/usr/bin/python3 to the first line of poseidon_main_gf_v0.x.y.py  
     b. Turn into an executable (chmod +x poseidon_main_gf_v0.x.y.py)  
-   	c. Add to Rasp menu (Preference->Main Menu Editor_-> New Item; give name; browse to executable; OK)
-   	d. From Rasp dropdown, right click on item, and add to Desktop
-   	e. File browser -> Edit -> Preferences -> Don't ask options on launch executable
+   	c. Add to Rasp menu (Preference->Main Menu Editor_-> New Item; give name; browse to executable; OK)  
+   	d. From Rasp dropdown, right click on item, and add to Desktop  
+   	e. File browser -> Edit -> Preferences -> Don't ask options on launch executable  
    	
    	
 ### Software modifications  
