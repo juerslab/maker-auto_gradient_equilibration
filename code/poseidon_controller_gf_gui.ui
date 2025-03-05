@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>693</width>
-    <height>483</height>
+    <width>732</width>
+    <height>486</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -45,7 +45,7 @@
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="iconSize">
        <size>
@@ -76,10 +76,9 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Basic usage:&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1. Use&lt;span style=&quot; font-weight:600;&quot;&gt; Setup&lt;/span&gt; to set up parameters (i.e. port, microstepping, units, speed &amp;amp; acceleration, jogging amount).&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2. Use &lt;span style=&quot; font-weight:600;&quot;&gt;Syringe Control &lt;/span&gt;actually move the syringes by specified amounts.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2. Use &lt;span style=&quot; font-weight:600;&quot;&gt;Syringe Control &lt;/span&gt;to actually move the syringes by specified amounts.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3. Use &lt;span style=&quot; font-weight:600;&quot;&gt;Auto Run&lt;/span&gt; to set up gradient programs using two syringes simultaneously.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; - Note that the syringes to be used for  Auto Run must be set as active in &lt;span style=&quot; font-weight:600;&quot;&gt;Syringe Control&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;4. Use&lt;span style=&quot; font-weight:600;&quot;&gt; Camera&lt;/span&gt; to connect to and view images from the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; 4. Use&lt;span style=&quot; font-weight:600;&quot;&gt; Camera&lt;/span&gt; to connect to and view images from the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </widget>
@@ -849,8 +848,8 @@ p, li { white-space: pre-wrap; }
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>450</width>
-             <height>353</height>
+             <width>344</width>
+             <height>360</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_26">
@@ -1665,8 +1664,8 @@ p, li { white-space: pre-wrap; }
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>637</width>
-             <height>309</height>
+             <width>98</width>
+             <height>40</height>
             </rect>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_32">
@@ -2129,7 +2128,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>693</width>
+     <width>732</width>
      <height>24</height>
     </rect>
    </property>
