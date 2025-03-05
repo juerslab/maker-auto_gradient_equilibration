@@ -34,14 +34,14 @@ A brief summary is here:
 
 The syringe pumping software was modified for auto serial dilution applications. To install the software:
 
-a. Flash the Arduino with arduino_serialCOM_v0.x.y.ino  (0.1.1 as of Feb2025)
-	- download Aruino IDE
-	- install AccelStepper (Tools -> Manage Libraries)
-	- open arduino_serialCOM_v0.x.y.ino
-	- choose the port which the Arduino is plugged into (Tools -> Port)
-	- compile and upload (Right arrow icon in upper left)
-b. If not present, install python3. Also install opencv (the code depends on cv2).  
-c. Copy poseidon_gf_main_v0.x.y.py and poseidon_controller_gf_gui.py to the same directory on the computer that will run the system. (0.1.1 as of Feb2025)
+a. Flash the Arduino with arduino_serialCOM_v0.x.y.ino  (0.1.1 as of Feb2025)  
+	- download Aruino IDE  
+	- install AccelStepper (Tools -> Manage Libraries)  
+	- open arduino_serialCOM_v0.x.y.ino  
+	- choose the port which the Arduino is plugged into (Tools -> Port)  
+	- compile and upload (Right arrow icon in upper left)  
+b. If not present, install python3. Also install opencv (the code depends on cv2).    
+c. Copy poseidon_gf_main_v0.x.y.py and poseidon_controller_gf_gui.py to the same directory on the computer that will run the system. (0.1.1 as of Feb2025)  
 
 ## Running instructions
 
