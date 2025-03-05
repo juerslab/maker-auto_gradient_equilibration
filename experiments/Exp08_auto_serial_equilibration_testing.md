@@ -227,4 +227,4 @@ Something happened with the SD card on the Raspberry Pi, and I had to restart fr
 1. Install Raspian on SD card. 
 2. Install opencv (takes a while):
 https://raspberrypi-guide.github.io/programming/install-opencv
-3. Make sure calibration.txt is present. Probably should make it possible for it not to be there...
+3. Make sure calibration.txt is present. Probably should make it possible for it not to be there...\
