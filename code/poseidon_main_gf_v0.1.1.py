@@ -723,6 +723,10 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 			thread.start()
 			print("RESUME command sent.")
 
+#			threadm = Thread(self.monitorMoves,targetPos)
+#			threadm.finished.connect(lambda:self.thread_finished(threadm))
+#			threadm.start()			
+
 			self.ui.pause_BTN.setText("Pause")
 	#####################################
 	# Zeroing the syringe positions etc.#
@@ -2885,7 +2889,7 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 				pass
 			dataRecvd = self.recvPositionArduino()
 			print(dataRecvd)
-			print(dataRecvd.lstrip()[0:4])
+#			print(dataRecvd.lstrip()[0:4])
 			pumpNum=int(dataRecvd.split("|")[1])
 			tmp=int(dataRecvd.split("|")[2])
 			stepsTogo[pumpNum]=tmp
