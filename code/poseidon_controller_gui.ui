@@ -1198,7 +1198,7 @@
              <widget class="QComboBox" name="p3_setup_jog_delta_INPUT"/>
             </item>
             <item row="0" column="4">
-             <widget class="QLabel" name="label_19">
+             <widget class="QCheckBox" name="accel_CHECKBOX">
               <property name="font">
                <font>
                 <pointsize>15</pointsize>

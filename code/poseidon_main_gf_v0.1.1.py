@@ -1853,8 +1853,8 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 		camera_port = 0
 		self.capture = cv2.VideoCapture(camera_port)
 		#TODO check the native resolution of the camera and scale the size down here
-		self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 800)
-		self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, 400)
+#		self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 800)
+#		self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, 400)
 
 		self.timer = QtCore.QTimer(self)
 		self.timer.timeout.connect(self.update_frame)
@@ -2885,6 +2885,7 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 				pass
 			dataRecvd = self.recvPositionArduino()
 			print(dataRecvd)
+			print(dataRecvd.lstrip()[0:4])
 			pumpNum=int(dataRecvd.split("|")[1])
 			tmp=int(dataRecvd.split("|")[2])
 			stepsTogo[pumpNum]=tmp
