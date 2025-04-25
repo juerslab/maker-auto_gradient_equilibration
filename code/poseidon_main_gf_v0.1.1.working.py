@@ -174,8 +174,8 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 		self.threadpool = QtCore.QThreadPool()
 		print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
 
-		# Boolean switch for when any pump is running
-		self.isRunning = False
+		# Boolean switch for when moves are being monitored
+		self.isMonitoring = False
 		
 		# Camera setup
 		self.timer = QtCore.QTimer()
@@ -189,12 +189,14 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 		self.speed_for_resetting=1000 #Use ~maximum speed for resetting the syring position
 #		self.update_displays()
 		if os.path.exists('calibration.txt'):
-			print('Found calbration.txt')
+			print('Found calibration.txt')
 		else:
 			print('calibration.txt not found. Creating this file with default values of zero. Calibration needed.')
 			open('calibration.txt','w')
 			calib=np.array([[0,0,0],[0,0,0]])
 			np.savetxt("calibration.txt",calib)
+		calib=np.loadtxt("calibration.txt")
+		self.target=calib[1,:]
 
 		#self.microstepping = 1
 		#print(self.microstepping)
@@ -674,7 +676,6 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 			targetPos=calib[1,:]+deltasteps
 
 			print("Sending RUN command..")
-			self.isRunning = True
 			thread = Thread(self.runTest, testData)
 			thread.finished.connect(lambda:self.thread_finished(thread))
 			thread.start()
@@ -684,9 +685,10 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 			time.sleep(0.1);
 			
 			direction=np.array([np.sign(float(p1_input_displacement)),np.sign(float(p2_input_displacement)),np.sign(float(p3_input_displacement))])
+			self.target=targetPos
 			threadm = Thread(self.monitorMoves,targetPos)
 			threadm.finished.connect(lambda:self.thread_finished(threadm))
-			threadm.start()			
+			threadm.start()		
 			while not threadm.isFinished():
 				QtWidgets.QApplication.processEvents()
 				pass
@@ -707,7 +709,7 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 			testData.append(cmd)
 
 			print("Sending PAUSE command..")
-			thread = Thread(self.runTest, testData)
+			thread = Thread(self.send_single_command, cmd)
 			thread.finished.connect(lambda:self.thread_finished(thread))
 			thread.start()
 			print("PAUSE command sent.")
@@ -721,14 +723,18 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 			testData.append(cmd)
 
 			print("Sending RESUME command..")
-			thread = Thread(self.runTest, testData)
+			thread = Thread(self.send_single_command, cmd)
 			thread.finished.connect(lambda:self.thread_finished(thread))
 			thread.start()
 			print("RESUME command sent.")
+			print("Target is",self.target)
 
-#			threadm = Thread(self.monitorMoves,targetPos)
-#			threadm.finished.connect(lambda:self.thread_finished(threadm))
-#			threadm.start()			
+			threadm = Thread(self.monitorMoves,self.target)
+			threadm.finished.connect(lambda:self.thread_finished(threadm))
+			threadm.start()		
+			while not threadm.isFinished():
+				QtWidgets.QApplication.processEvents()
+				pass
 
 			self.ui.pause_BTN.setText("Pause")
 	#####################################
@@ -873,15 +879,15 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 		thread.start()
 		print("STOP command sent.")
 		time.sleep(0.1)
-		self.ui.p1_absolute_DISP.display(self.ui.p1_curr_DISP.value())
-		self.ui.p2_absolute_DISP.display(self.ui.p2_curr_DISP.value())
-		self.ui.p3_absolute_DISP.display(self.ui.p3_curr_DISP.value())
-		p1steps=self.convert_displacement(self.ui.p1_curr_DISP.value(), self.p1_units, self.p1_syringe_area, self.microstepping)
-		p2steps=self.convert_displacement(self.ui.p2_curr_DISP.value(), self.p2_units, self.p2_syringe_area, self.microstepping)
-		p3steps=self.convert_displacement(self.ui.p3_curr_DISP.value(), self.p3_units, self.p3_syringe_area, self.microstepping)
-		calib=np.loadtxt("calibration.txt")
-		calib[1,:]=[p1steps,p2steps,p3steps]
-		np.savetxt("calibration.txt",calib)
+# 		self.ui.p1_absolute_DISP.display(self.ui.p1_curr_DISP.value())
+# 		self.ui.p2_absolute_DISP.display(self.ui.p2_curr_DISP.value())
+# 		self.ui.p3_absolute_DISP.display(self.ui.p3_curr_DISP.value())
+# 		p1steps=self.convert_displacement(self.ui.p1_curr_DISP.value(), self.p1_units, self.p1_syringe_area, self.microstepping)
+# 		p2steps=self.convert_displacement(self.ui.p2_curr_DISP.value(), self.p2_units, self.p2_syringe_area, self.microstepping)
+# 		p3steps=self.convert_displacement(self.ui.p3_curr_DISP.value(), self.p3_units, self.p3_syringe_area, self.microstepping)
+# 		calib=np.loadtxt("calibration.txt")
+# 		calib[1,:]=[p1steps,p2steps,p3steps]
+# 		np.savetxt("calibration.txt",calib)
 
 
 	def jog(self, btn):
@@ -2484,6 +2490,13 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 	# MISC : Functions I need
 	# =======================
 
+	def is_int(self,s):
+		try:
+			int(s)
+			return True
+		except ValueError:
+			return False
+
 	def steps2mm(self, steps, microsteps):
 	# 200 steps per rev
 	# one rev is 0.8mm dist
@@ -2879,31 +2892,55 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 		return calib[1,:]
 
 	def monitorMoves(self,targetSteps):
+		stopped = False
+		waitingForFirst = True
+		self.isMonitoring = True
 		stepsTogo=np.zeros(3)
-		while self.serial.inWaiting()==0:
-			pass			
-		dataRecvd = self.recvPositionArduino()
-		print(dataRecvd)
-		pumpNum=int(dataRecvd.split("|")[1])
-		tmp=int(dataRecvd.split("|")[2])
-		stepsTogo[pumpNum]=tmp
-		while abs(stepsTogo).sum() > 0 and self.isRunning:
+		
+# 		while self.serial.inWaiting()==0:
+# 			pass			
+# 		dataRecvd = self.recvPositionArduino()
+# 		print(dataRecvd)
+# 		if len(dataRecvd.split("|")) > 1:
+# 			if self.is_int(dataRecvd.split("|")[1]) and self.is_int(dataRecvd.split("|")[2]):
+# 				pumpNum=int(dataRecvd.split("|")[1])
+# 				tmp=int(dataRecvd.split("|")[2])
+# 				stepsTogo[pumpNum]=tmp
+		while (abs(stepsTogo).sum() > 0 or waitingForFirst) and self.isMonitoring and not stopped:
 			while self.serial.in_waiting==0:
 				pass
 			dataRecvd = self.recvPositionArduino()
 			print(dataRecvd)
+			if len(dataRecvd.split("|")) > 2 and self.is_int(dataRecvd.split("|")[1]) and self.is_int(dataRecvd.split("|")[2]):
 #			print(dataRecvd.lstrip()[0:4])
-			pumpNum=int(dataRecvd.split("|")[1])
-			tmp=int(dataRecvd.split("|")[2])
-			stepsTogo[pumpNum]=tmp
+				pumpNum=int(dataRecvd.split("|")[1])
+				tmp=int(dataRecvd.split("|")[2])
+				stepsTogo[pumpNum]=tmp
 #			print(pumpNum,stepsTogo[pumpNum])
-			currentSteps=targetSteps-stepsTogo
+				currentSteps=targetSteps-stepsTogo
 #			print(stepsTogo)
 #			print(currentSteps)
-			self.update_current_vol(currentSteps)
+				self.update_current_vol(currentSteps)
+				waitingForFirst = False
+			else:
+				modepos = dataRecvd.index("mode:")
+				print("Here")
+				print(dataRecvd[modepos+6:modepos+10])
+				if dataRecvd[modepos+6:modepos+10] == "STOP":
+					stopped = True
+					self.ui.p1_absolute_DISP.display(self.ui.p1_curr_DISP.value())
+					self.ui.p2_absolute_DISP.display(self.ui.p2_curr_DISP.value())
+					self.ui.p3_absolute_DISP.display(self.ui.p3_curr_DISP.value())
+					p1steps=self.convert_displacement(self.ui.p1_curr_DISP.value(), self.p1_units, self.p1_syringe_area, self.microstepping)
+					p2steps=self.convert_displacement(self.ui.p2_curr_DISP.value(), self.p2_units, self.p2_syringe_area, self.microstepping)
+					p3steps=self.convert_displacement(self.ui.p3_curr_DISP.value(), self.p3_units, self.p3_syringe_area, self.microstepping)
+					calib=np.loadtxt("calibration.txt")
+					calib[1,:]=[p1steps,p2steps,p3steps]
+					np.savetxt("calibration.txt",calib)
+				if dataRecvd[modepos+6:modepos+11] == "PAUSE":
+					stopped = True
 			
-			
-
+		self.isMonitoring = False
 		
 #		print("Steps:",deltasteps)
 		
@@ -2940,20 +2977,21 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 		print("Send and receive complete\n\n")'''
 
 	def send_single_command(self, command):
+		time.sleep(0.4)# In case Stop or Pause is hit immediately after run
 		waiting_for_reply = False
 		if waiting_for_reply == False:
 			self.sendToArduino(command)
 			print("Sent from PC -- STR " + command)
 			waiting_for_reply = True
-		if waiting_for_reply == True:
+		if waiting_for_reply == True and not self.isMonitoring:
 			while self.serial.inWaiting() == 0:
 				pass
 			data_received = self.recvPositionArduino()
 #			data_received = "from other func"
 			print("Reply Received -- " + data_received)
 			waiting_for_reply = False
-			print("=============================\n\n")
-			print("Sent a single command")
+		print("=============================\n\n")
+		print("Sent a single command")
 
 
 	def listening(self):

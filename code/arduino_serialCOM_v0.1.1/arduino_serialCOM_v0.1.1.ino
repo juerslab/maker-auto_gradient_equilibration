@@ -594,13 +594,13 @@ void runFew() {
         } 
         if (stepperStatus[i] == 0 ) {
           steppers[i].run();
+          sendDistanceToPC(i,steppers[i].distanceToGo());
         }
         // Check if it reached its position
-        sendDistanceToPC(i,steppers[i].distanceToGo());
       }
       if (array_sum(stepperStatus, 3) == array_sum(motors, 3)) {movesComplete = true;}
     }
-    getDataFromPC();
+     getDataFromPC();
   }
   clearVariables();
 }
@@ -614,19 +614,20 @@ void stopAll() {
 }
 
 void pauseRun() {
-  for (int i = 0; i < 3; i += 1) {
-    distances_to_go[i] = steppers[i].distanceToGo();
-    targets_position[i] = steppers[i].targetPosition();
-    distances_left[i] = distances_to_go[i] - distances_left[i];
-    steppers[i].move(p1_distance_to_go);
-  }
+//   for (int i = 0; i < 3; i += 1) {
+//     distances_to_go[i] = steppers[i].distanceToGo();
+//     targets_position[i] = steppers[i].targetPosition();
+//     distances_left[i] = distances_to_go[i] - distances_left[i];
+//     steppers[i].move(p1_distance_to_go);
+//   }
   while (strcmp(mode, "RESUME") != 0) {
     // do nothing
     getDataFromPC();
+//    delay(500);
   }
-  for (int i = 0; i < 3; i += 1) {
-    distances[i] = distances_left[i];
-  }
-
-  return runFew();
+//   for (int i = 0; i < 3; i += 1) {
+//     distances[i] = distances_left[i];
+//   }
+// 
+//   return runFew();
 }
