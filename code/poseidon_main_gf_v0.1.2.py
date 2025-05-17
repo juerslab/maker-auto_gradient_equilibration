@@ -1566,7 +1566,9 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 			self.linear_time_counter = 0
 			self.concentration_counter = 0
 			
-			
+# 	Set up variables needed		
+	
+			f = self.linear_duty_ratio
 			injection_n = self.auto_injection_number
 			cont_volume = self.linear_container_volume
 			units = self.p_linear_units
@@ -1583,20 +1585,18 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 			
 			
 			self.linear_timer = QtCore.QTimer(self)
-			self.linear_timer.timeout.connect(lambda:self.linear_update(injection_n, cont_volume, units, area, microstepping, inject, extract, exp_time, ini_cons, syr_cons, m))
+			self.linear_timer.timeout.connect(lambda:self.linear_update(injection_n, cont_volume, units, area, microstepping, inject, extract, total_time, exp_time, ini_cons, syr_cons, m))
 # 			self.linear_timer.timeout.connect(lambda:self.linear_update_testing(injection_n, cont_volume, units, area, microstepping, inject, extract, exp_time, ini_cons, syr_cons, m))
 			
 			self.linear_time_timer = QtCore.QTimer(self)
 			self.linear_time_timer.timeout.connect(lambda:self.linear_time_update(total_time, exp_time, injection_n, ini_cons, m))
-			
-			self.linear_update(injection_n, cont_volume, units, area, microstepping, inject, extract, exp_time, ini_cons, syr_cons, m)
+			if self.linear_duty_ratio != 1:
+				self.linear_timer.start(self.injection_interval * 1000)			
+			self.linear_time_timer.start(1000)			
+			self.linear_update(injection_n, cont_volume, units, area, microstepping, inject, extract, total_time, exp_time, ini_cons, syr_cons, m)
 # 			self.linear_update_testing(injection_n, cont_volume, units, area, microstepping, inject, extract, exp_time, ini_cons, syr_cons, m)
 			self.linear_time_update(total_time, exp_time, injection_n, ini_cons, m)
 			
-			if self.linear_duty_ratio != 1:
-				self.linear_timer.start(self.injection_interval * 1000)
-			
-			self.linear_time_timer.start(1000)
 
 	def linear_update_testing(self, injection_n, cont_volume, units, area, microstepping, inject, extract, exp_time, ini_cons, syr_cons, m):
 		
@@ -1608,8 +1608,7 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 # 		self.threadTest2()
 # 		thread = Thread(self.runTest, testData)
 # 		thread.finished.connect(lambda:self.thread_finished(thread))
-# 		thread.start()
-		
+# 		thread.start()		
 		self.linear_counter += 1
 		
 		print("Linear update, injection number:",self.linear_counter)		
@@ -1639,47 +1638,48 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 		
 
 	
-	def linear_update(self, injection_n, cont_volume, units, area, microstepping, inject, extract, exp_time, ini_cons, syr_cons, m):
+	def linear_update(self, injection_n, cont_volume, units, area, microstepping, inject, extract, total_time, exp_time, ini_cons, syr_cons, m):
+	# This makes the next injection
 		self.linear_counter += 1
+		print("Linear update, injection number:",self.linear_counter," of ", injection_n)		
 		
 		if self.linear_counter > injection_n:
 			self.linear_update_stop()
 			return
 		
 		t_interval = exp_time / injection_n
+		tt_interval = total_time / injection_n
 		t_next = t_interval * self.linear_counter
 		t = t_interval * (self.linear_counter - 1)
-		
-		curr_conc = ini_cons + m * t_interval * (self.linear_counter - 1)
+
+		curr_conc = ini_cons + m * tt_interval * (self.linear_counter - 1)
 		
 			
-#		inject_volume = cont_volume * m * t_interval / (syr_cons - curr_conc)
+		inject_volume = cont_volume * m * tt_interval / (syr_cons - curr_conc)
 		
-		inject_volume = -cont_volume * (self.linear_inject_volume_state(t_next, ini_cons, syr_cons, m) - self.linear_inject_volume_state(t, ini_cons, syr_cons, m))
+#		inject_volume = -cont_volume * (self.linear_inject_volume_state(t_next, ini_cons, syr_cons, m) - self.linear_inject_volume_state(t, ini_cons, syr_cons, m))
 		self.ui.linear_injection_size_LCD.display(inject_volume)
 		
 		#have it set speed properly, make sure to adjust for units
 		
 		
 		#check this, convert volume makes the inject volume in mm^3 to match syringe area (mm^2), units sent to convert speed 
-		print("Inject volume",inject_volume)
-		print("Area:",area)
-		print("Time Interval",t_interval)
+		print("  Inject volume",inject_volume)
+		print("  Area:",area)
+		print("  Time Interval",t_interval)
 		p_linear_speed = (self.convert_volume(inject_volume) / area) / t_interval
 		if self.is_premix_active:
 			p_linear_speed=p_linear_speed*2
 	
-		
-		print("Time:",t_interval,"Speed",p_linear_speed)
-		
+				
 		p_linear_speed = self.convert_speed(p_linear_speed, "mm" + "/" + units.split("/")[1], area, microstepping)
 		
-		print("Time:",t_interval,"Speed",p_linear_speed)
+		print("  Time:",t_interval,"Speed",p_linear_speed)
 
 		inject_speed = "<SETTING,SPEED,%s,%f,F,0.0,0.0,0.0>" % (inject, p_linear_speed)
 		extract_speed = "<SETTING,SPEED,%s,%f,F,0.0,0.0,0.0>" % (extract, p_linear_speed)
 		
-		print("Writing speeds")
+		print("  Writing speeds")
 		testData = []
 		testData.append(inject_speed)
 		testData.append(extract_speed)
@@ -1750,12 +1750,13 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 
 			cmd_forward = "<RUN,DIST," + pumps_2_run + ",0,F,%s,%s,%s>" % tuple(pump_instruction_list)
 
+		print("  Writing volumes")
 		testData=[]
 		testData.append(cmd_forward)
 		thread = Thread(self.runTest, testData)
 		thread.finished.connect(lambda:self.thread_finished(thread))
 		thread.start()
-		time.sleep(0.1)
+		time.sleep(0.5)
 		
 		targetPos=self.update_target(cmd_forward)		
 		direction=np.array([np.sign(float(pump_instruction_list[0])),np.sign(float(pump_instruction_list[1])),np.sign(float(pump_instruction_list[2]))])
@@ -1805,20 +1806,21 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 		
 		
 	def linear_time_update(self, total_time, exp_time, injection_n, ini_cons, m):
-		self.linear_time_counter += 1
+		self.linear_time_counter += 1 # this is essentially the number of seconds elapsed
 		
 		
 		self.linear_displayTime = total_time - self.linear_time_counter
 		
 		self.auto_display_time()
 		
-		t_interval = exp_time / injection_n
-		injection_interval = total_time / injection_n
+		f = exp_time / total_time
+		t_interval = exp_time / injection_n #Injecting time
+		injection_interval = total_time / injection_n # Time between injections
 		
 		
 		
 		#concentration = ini_cons
-		
+# Here the idea is to update the concentration while the injection is happening, but not otherwise	
 		if (self.linear_time_counter % injection_interval) <= t_interval and self.linear_counter > -1 and (self.linear_time_counter % injection_interval) > 0:
 			leap_update = np.ceil(np.modf(t_interval)[0] - np.modf(self.linear_time_counter % injection_interval)[0]) * int(np.ceil(np.modf(self.linear_time_counter % injection_interval)[0]))
 			
@@ -1826,10 +1828,10 @@ class MainWindow(QtWidgets.QMainWindow, poseidon_controller_gf_gui.Ui_MainWindow
 			self.concentration_counter += increment
 			#concentration = ini_cons + (m * ((self.linear_time_counter % t_interval) + ((self.linear_counter - 1) * t_interval) + isinstance(self.linear_time_counter / t_interval, int)))
 			
-			concentration = ini_cons + m * self.concentration_counter
+			concentration = ini_cons + (m / f) * self.concentration_counter
 			
 			self.ui.linear_current_concentration_LCD.display(concentration)
-			print(leap_update, self.linear_time_counter, self.linear_time_counter % injection_interval, injection_interval, t_interval)
+#			print(leap_update, self.linear_time_counter, self.linear_time_counter % injection_interval, injection_interval, t_interval)
 			#print("TIME: %f" % ((self.linear_time_counter % t_interval) + (self.linear_counter * t_interval)))
 		
 		if self.linear_time_counter >= total_time:

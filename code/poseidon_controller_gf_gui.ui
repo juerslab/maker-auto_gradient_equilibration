@@ -51,7 +51,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <property name="iconSize">
      <size>
@@ -1157,7 +1157,7 @@ p, li { white-space: pre-wrap; }
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>465</width>
+           <width>521</width>
            <height>360</height>
           </rect>
          </property>
@@ -1554,7 +1554,7 @@ p, li { white-space: pre-wrap; }
                          <string/>
                         </property>
                         <property name="decimals">
-                         <number>3</number>
+                         <number>5</number>
                         </property>
                         <property name="maximum">
                          <double>999.990000000000009</double>
@@ -1707,8 +1707,8 @@ p, li { white-space: pre-wrap; }
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>659</width>
-           <height>292</height>
+           <width>98</width>
+           <height>40</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_32">
